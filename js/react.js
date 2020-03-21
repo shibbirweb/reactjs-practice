@@ -1,92 +1,76 @@
+/* function UserGreeting(props) {
+  return <h1>Welcome Back</h1>;
+}
+
+function GuestGreeting(props) {
+  return <h1>Welcome Guest</h1>;
+}
+
+function Greetings(props) {
+  const isLoggedIn = props.isLoggedIn;
+
+  if (isLoggedIn) {
+    return <UserGreeting />;
+  } else {
+    return <GuestGreeting />;
+  }
+}
+
+ReactDOM.render(
+  <Greetings isLoggedIn={true} />,
+  document.getElementById("app")
+);
+ */
+
+function LoginButton(props) {
+  return <button onClick={props.onClick}>Login</button>;
+}
+
+function LogoutButton(props) {
+  return <button onClick={props.onClick}>Logout</button>;
+}
+
 class Welcome extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      name: props.name,
-      age: props.age,
-      message: props.age
-    };
-
-    this.alertMessage = this.alertMessage.bind(this);
+    this.loginEvent = this.loginEvent.bind(this);
+    this.logoutEvent = this.logoutEvent.bind(this);
+    this.state = { isLoggedIn: props.isLoggedIn };
   }
 
-  componentDidMount() {
-    this.checkAge(this.state.age);
-    /* if (this.state.age >= 35) {
-      this.setState({
-        message: "You are over aged"
-      });
-    } else {
-      this.setState({
-        message: "You are under aged"
-      });
-    } */
-  }
-
-  componentWillUnmount() {}
-
-  alertMessage(event) {
-    console.log(event.target.getAttribute("msg"));
-  }
-  alertWithParameter(msg) {
-    alert(msg);
-  }
-
-  checkAge(age) {
-    if (age >= 35) {
-      this.setState({
-        message: "You are over aged"
-      });
-    } else {
-      this.setState({
-        message: "You are under aged"
-      });
-    }
-  }
-  upEvent(e) {
-    const stateAge = Number.parseFloat(this.state.age) + 1;
-
+  loginEvent(e) {
     this.setState({
-      age: stateAge
+      isLoggedIn: true
     });
-
-    this.checkAge(stateAge);
   }
-  downEvent(e) {
-    const stateAge = Number.parseFloat(this.state.age) - 1;
 
+  logoutEvent(e) {
     this.setState({
-      age: stateAge
+      isLoggedIn: false
     });
-
-    this.checkAge(stateAge);
   }
 
   render() {
+    const button = this.state.isLoggedIn ? (
+      <LogoutButton onClick={this.logoutEvent} />
+    ) : (
+      <LoginButton onClick={this.loginEvent} />
+    );
+
+    const message = this.state.isLoggedIn ? (
+      <h2>Welcome back</h2>
+    ) : (
+      <h2>Please Login</h2>
+    );
+
     return (
       <div>
-        <h2>{this.state.name}</h2>
-        <p>{this.state.age}</p>
-        <p>{this.state.message}</p>
-
-        <button
-          onDoubleClick={this.alertWithParameter.bind(this, this.props.msg)}
-        >
-          Double Click me
-        </button>
-        <button msg="Hello" onClick={this.alertMessage.bind(this)}>
-          Click me
-        </button>
-
-        <button onClick={this.upEvent.bind(this)}>Up</button>
-        <button onClick={this.downEvent.bind(this)}>Down</button>
+        {message}
+        {button}
       </div>
     );
   }
 }
 
-ReactDOM.render(
-  <Welcome name="Rizwan" age="45" msg="Hello world..." />,
-  document.getElementById("app")
-);
+ReactDOM.render(<Welcome isLoggedIn={true} />, document.getElementById("app"));
