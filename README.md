@@ -2,4 +2,4 @@
 
 ### Keyline
 
-- Basic ReactJS Element
+- Component & Props
