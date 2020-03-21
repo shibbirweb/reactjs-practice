@@ -1,57 +1,51 @@
-/* function tick() {
-  var element = (
-    <div>
-      <h1>Hello world</h1>
-      <h4>Time is {new Date().toLocaleTimeString()}</h4>
-    </div>
-  );
-
-  ReactDOM.render(element, document.querySelector("#app"));
-}
-
-setInterval(tick, 1000);
- */
-
-function Message(props) {
-  return (
-    <h2
-      className={props.clName}
-      style={{
-        color: props.color,
-        backgroundColor: props.bgcolor,
-        padding: "10px",
-        textAlign: "center"
-      }}
-    >
-      {props.name}
-    </h2>
-  );
-}
-
 class Welcome extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: props.name,
+      age: props.age,
+      message: props.age
+    };
+  }
+
+  componentDidMount() {
+    this.setState(state => {
+      if (state.age >= 35) {
+        return {
+          message: "You are over aged"
+        };
+      } else {
+        return {
+          message: "You are under aged"
+        };
+      }
+    });
+    /* if (this.state.age >= 35) {
+      this.setState({
+        message: "You are over aged"
+      });
+    } else {
+      this.setState({
+        message: "You are under aged"
+      });
+    } */
+  }
+
+  componentWillUnmount() {}
+
   render() {
     return (
-      <Message
-        clName={this.props.clName}
-        name={this.props.name}
-        color={this.props.fcolor}
-        bgcolor={this.props.bgcolor}
-      />
+      <div>
+        <h2>{this.state.name}</h2>
+        <p>{this.state.age}</p>
+        <p>{this.state.message}</p>
+      </div>
     );
   }
 }
 
 ReactDOM.render(
-  <Welcome
-    name="Shibbir Ahmed"
-    clName="MyClass"
-    fcolor="red"
-    bgcolor="green"
-  />,
+  <Welcome name="Rizwan" age="45" />,
   document.getElementById("app")
-);
-
-ReactDOM.render(
-  <Welcome name="Rizwan" clName="para" fcolor="red" bgcolor="yellow" />,
-  document.getElementById("app3")
 );
