@@ -3,27 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 //import App from './App';
 import * as serviceWorker from './serviceWorker';
+import MyApp from "./components/MyApp";
+import Message from "./components/Message";
 
-
-// functional / stateless component
-function Message(props){
-    return (<h2>Hello, From stateless component</h2>)
-}
-
-// es6/ stateful Component
-class MyApp extends React.Component{
-    render(){
-        return (
-            <h2>Hello, From stateful component</h2>
-        )
-    }
-}
 
 ReactDOM.render(
   <React.StrictMode>
     <div>
-        <Message/>
-        <MyApp/>
+        <Message message="From props"/>
+        <MyApp message="From ES6 Component Props"/>
     </div>
   </React.StrictMode>,
   document.getElementById('root')
