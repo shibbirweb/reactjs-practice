@@ -4,17 +4,13 @@ import './index.css';
 //import App from './App';
 import * as serviceWorker from './serviceWorker';
 import MyApp from "./components/MyApp";
-import Message from "./components/Message";
 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <div>
-        <Message message="From props"/>
+    <React.StrictMode>
         <MyApp message="From ES6 Component Props"/>
-    </div>
-  </React.StrictMode>,
-  document.getElementById('root')
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
