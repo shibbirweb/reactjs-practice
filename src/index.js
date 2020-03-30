@@ -4,9 +4,27 @@ import './index.css';
 //import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+
+// functional / stateless component
+function Message(props){
+    return (<h2>Hello, From stateless component</h2>)
+}
+
+// es6/ stateful Component
+class MyApp extends React.Component{
+    render(){
+        return (
+            <h2>Hello, From stateful component</h2>
+        )
+    }
+}
+
 ReactDOM.render(
   <React.StrictMode>
-    <h1>Hello World</h1>
+    <div>
+        <Message/>
+        <MyApp/>
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
