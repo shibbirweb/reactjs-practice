@@ -2,6 +2,7 @@ import React from "react";
 
 import "./App.css";
 import logo from "./logo.svg";
+import AddForm from "./components/AddForm"
 
 class App extends React.Component {
   constructor() {
@@ -10,6 +11,8 @@ class App extends React.Component {
     this.state = {
       tasks: [],
     };
+
+    this.addRecord = this.addRecord.bind(this)
   }
 
   componentDidMount() {
@@ -17,6 +20,15 @@ class App extends React.Component {
       .then((res) => res.json())
       .then((tasks) => this.setState({ tasks }))
       .catch((error) => console.log(error));
+  }
+
+  addRecord(e){
+      /*const tasks = this.state.tasks;
+      tasks.push(e)*/
+      const tasks = [...this.state.tasks, e]
+      this.setState({
+          tasks: tasks
+      })
   }
 
   render() {
@@ -35,6 +47,7 @@ class App extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-6 offset-md-3">
+                <AddForm addRec={this.addRecord}/>
               <ul className="list-group">
                 <li className="list-group-item active">Tasks</li>
                 {tasks}
