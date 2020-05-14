@@ -3,6 +3,7 @@ import React from "react";
 import "./App.css";
 import logo from "./logo.svg";
 import AddForm from "./components/AddForm"
+import Task from "./components/Task";
 
 class App extends React.Component {
     constructor() {
@@ -14,13 +15,14 @@ class App extends React.Component {
 
         this.addRecord = this.addRecord.bind(this)
         this.delRecord = this.delRecord.bind(this)
+        this.fetchTasks = this.fetchTasks.bind(this)
     }
 
     componentDidMount() {
-        this.fetchData()
+        this.fetchTasks();
     }
 
-    fetchData() {
+    fetchTasks(){
         fetch("http://localhost:4000/tasks")
             .then((res) => res.json())
             .then((tasks) => this.setState({tasks}))
@@ -37,28 +39,11 @@ class App extends React.Component {
     }
 
     delRecord(e) {
-        const id = e.target.getAttribute("data-key");
-        fetch(`http://localhost:4000/tasks/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(() => {
-                this.fetchData()
-            })
-            .catch(error => console.log(error))
+        this.setState({tasks: e})
     }
 
     render() {
-        const tasks = this.state.tasks.map((task) => (
-            <li key={task.id} className="list-group-item">
-                {task.title} - {task.isCompleted} -{" "}
-                <button className="btn btn-primary btn-sm">Edit</button>
-                <button className="btn btn-danger btn-sm ml-2" data-key={task.id} onClick={this.delRecord}>Delete
-                </button>
-            </li>
-        ));
+        const tasks = this.state.tasks.map(task => <Task {...task} key={task.id} onUpdate={this.fetchTasks} onDel={this.delRecord}/>);
         return (
             <div className="App">
                 <header className="App-header">
