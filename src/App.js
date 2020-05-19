@@ -1,5 +1,4 @@
-import React, {Fragment} from "react";
-import Tasks from "./components/Pages/Tasks";
+import React from "react";
 import Navbar from "./components/Navbar";
 
 
@@ -7,10 +6,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <Fragment>
-                <Navbar/>
-                <Tasks/>
-            </Fragment>
+            <Navbar/>
         );
     }
 }
