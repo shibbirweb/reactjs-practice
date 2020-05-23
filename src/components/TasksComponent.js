@@ -1,13 +1,22 @@
 import React, {Component} from "react";
+import TaskComponent from "./TaskComponent";
 
 class TasksComponent extends Component {
     render() {
+        let tasksLi = <li className="list-group-item text-center">No task available</li>
+
+        if (this.props.tasks && this.props.tasks.length > 0){
+            tasksLi = this.props.tasks.map((task, index) => <TaskComponent {...task} key={index}/>)
+        }
+        
         return (
             <div className="row">
                 <div className="col-12">
-                    <h5 className="text-center">Tasks</h5>
+                    <h5 className="list-group-item text-center">Tasks</h5>
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
+                        {tasksLi}
+
+                        {/*<li className="list-group-item">
                             <input className="form-check-input" type="checkbox"/>
                             Cras justo odio
                         </li>
@@ -30,7 +39,8 @@ class TasksComponent extends Component {
                                        defaultValue="Vestibulum at eros"
                                        placeholder="Jane Doe"/>
                             </form>
-                        </li>
+                        </li>*/}
+
                     </ul>
                 </div>
             </div>

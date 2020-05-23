@@ -1,17 +1,21 @@
 import React, {Component} from "react";
 
 class NewTaskComponent extends Component {
-
     render() {
         return (
             <div className="row">
                 <div className="col-12">
-                    <form action="">
+                    <form onSubmit={(event) => {
+                        event.preventDefault();
+                        this.props.onNewTask({
+                            title: event.target.task.value,
+                            isCompleted: false
+                        })
+                    }}>
                         <div className="input-group mb-3">
-                            <input type="text" className="form-control" placeholder="Enter task name"
-                                   aria-label="Recipient's username" aria-describedby="button-addon2"/>
+                            <input type="text" name="task" className="form-control" placeholder="Enter task name"/>
                             <div className="input-group-append">
-                                <button className="btn btn-outline-dark" type="button" id="button-addon2">Save
+                                <button className="btn btn-outline-dark" type="submit" id="button-addon2">Save
                                 </button>
                             </div>
                         </div>

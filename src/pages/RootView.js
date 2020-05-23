@@ -5,6 +5,36 @@ import TasksComponent from "../components/TasksComponent";
 
 class RootView extends Component {
 
+    constructor(props) {
+        super(props);
+        
+        this.state = {}
+        // init state method
+        this.initState = this.initState.bind(this);
+        // update state method
+        this.addTask = this.addTask.bind(this);
+    }
+
+    // component mount method
+    componentDidMount() {
+        this.initState();
+    }
+
+    // init state
+    initState() {
+        this.setState({
+            tasks: []
+        })
+    }
+
+    // update state
+    addTask(task) {
+        const tasks = [...this.state.tasks, task]
+        this.setState({
+            tasks
+        })
+    }
+
     render() {
         return (
             <Fragment>
@@ -18,7 +48,7 @@ class RootView extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 offset-md-3 mt-1">
-                                <NewTaskComponent/>
+                                <NewTaskComponent onNewTask={this.addTask}/>
                             </div>
                         </div>
                     </div>
@@ -27,7 +57,7 @@ class RootView extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 offset-md-3 py-3">
-                                <TasksComponent/>
+                                <TasksComponent tasks={this.state.tasks}/>
                             </div>
                         </div>
                     </div>
