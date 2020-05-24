@@ -12,31 +12,6 @@ class RootView extends Component {
         this.state = {
             tasks: []
         }
-
-        // add task state method
-        this.addTask = this.addTask.bind(this);
-        // update task status
-        this.updateTaskStatus = this.updateTaskStatus.bind(this);
-    }
-
-    // update state
-    addTask(task) {
-        const tasks = [...this.state.tasks, task]
-        this.setState({
-            tasks
-        })
-    }
-
-    updateTaskStatus({index, data}) {
-        const task = this.state.tasks[index];
-
-        task.isCompleted = data.isCompleted
-
-        const tasks = this.state.tasks;
-
-        tasks.splice(index, 1, task)
-
-        this.setState({tasks})
     }
 
     render() {
@@ -52,7 +27,12 @@ class RootView extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 offset-md-3 mt-1">
-                                <NewTaskComponent onNewTask={this.addTask}/>
+                                <NewTaskComponent onNewTask={(task) => {
+                                    const tasks = [...this.state.tasks, task]
+                                    this.setState({
+                                        tasks
+                                    })
+                                }}/>
                             </div>
                         </div>
                     </div>
@@ -61,7 +41,29 @@ class RootView extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 offset-md-3 py-3">
-                                <TasksComponent tasks={this.state.tasks} onStatusChange={this.updateTaskStatus}/>
+                                <TasksComponent
+                                    tasks={this.state.tasks}
+
+                                    onStatusChange={({index, data}) => {
+                                        const task = this.state.tasks[index];
+
+                                        task.isCompleted = data.isCompleted
+
+                                        const tasks = this.state.tasks;
+
+                                        tasks.splice(index, 1, task)
+
+                                        this.setState({tasks})
+                                    }}
+
+                                    onTaskUpdate={({index, data}) => {
+                                        const tasks = this.state.tasks;
+                                        const task = this.state.tasks[index];
+                                        task.title = data.title;
+                                        tasks.splice(index, 1, task);
+                                        this.setState(tasks)
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
