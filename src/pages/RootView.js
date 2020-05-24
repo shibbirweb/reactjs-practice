@@ -19,10 +19,6 @@ class RootView extends Component {
         this.updateTaskStatus = this.updateTaskStatus.bind(this);
     }
 
-    // component mount method
-    componentDidMount() {
-    }
-
     // update state
     addTask(task) {
         const tasks = [...this.state.tasks, task]
