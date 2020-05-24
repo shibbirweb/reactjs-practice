@@ -5,10 +5,16 @@ class TasksComponent extends Component {
     render() {
         let tasksLi = <li className="list-group-item text-center">No task available</li>
 
-        if (this.props.tasks && this.props.tasks.length > 0){
-            tasksLi = this.props.tasks.map((task, index) => <TaskComponent {...task} key={index}/>)
+        if (this.props.tasks && this.props.tasks.length > 0) {
+            tasksLi = this.props.tasks.map((task, index) => {
+                task['index'] = index;
+                return (
+                    <TaskComponent {...task} key={index}
+                                   onStatusChange={(event) => this.props.onStatusChange(event)}/>
+                )
+            })
         }
-        
+
         return (
             <div className="row">
                 <div className="col-12">

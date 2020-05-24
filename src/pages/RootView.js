@@ -7,24 +7,20 @@ class RootView extends Component {
 
     constructor(props) {
         super(props);
-        
-        this.state = {}
-        // init state method
-        this.initState = this.initState.bind(this);
-        // update state method
+
+        // init state
+        this.state = {
+            tasks: []
+        }
+
+        // add task state method
         this.addTask = this.addTask.bind(this);
+        // update task status
+        this.updateTaskStatus = this.updateTaskStatus.bind(this);
     }
 
     // component mount method
     componentDidMount() {
-        this.initState();
-    }
-
-    // init state
-    initState() {
-        this.setState({
-            tasks: []
-        })
     }
 
     // update state
@@ -33,6 +29,18 @@ class RootView extends Component {
         this.setState({
             tasks
         })
+    }
+
+    updateTaskStatus({index, data}) {
+        const task = this.state.tasks[index];
+
+        task.isCompleted = data.isCompleted
+
+        const tasks = this.state.tasks;
+
+        tasks.splice(index, 1, task)
+
+        this.setState({tasks})
     }
 
     render() {
@@ -57,7 +65,7 @@ class RootView extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 offset-md-3 py-3">
-                                <TasksComponent tasks={this.state.tasks}/>
+                                <TasksComponent tasks={this.state.tasks} onStatusChange={this.updateTaskStatus}/>
                             </div>
                         </div>
                     </div>
