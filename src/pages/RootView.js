@@ -63,6 +63,13 @@ class RootView extends Component {
                                         tasks.splice(index, 1, task);
                                         this.setState(tasks)
                                     }}
+
+                                    onTaskDelete={(taskIndex) => {
+                                        const tasks = this.state.tasks;
+                                        tasks.splice(taskIndex, 1)
+
+                                        this.setState({tasks})
+                                    }}
                                 />
                             </div>
                         </div>

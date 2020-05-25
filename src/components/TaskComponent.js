@@ -42,7 +42,7 @@ class TaskComponent extends Component {
         };
 
         return (
-            <li className="list-group-item" onDoubleClick={() => {
+            <li className="list-group-item d-flex" onDoubleClick={() => {
                 this.setState({
                     isEdit: true
                 })
@@ -60,7 +60,18 @@ class TaskComponent extends Component {
                     })
                 }} defaultChecked={isCompleted}/>
 
-                {taskText()}
+                <div className="flex-grow-1">
+                    {taskText()}
+                </div>
+                <div>
+                    <button className="btn btn-sm btn-danger" disabled={this.state.isEdit}
+                            onClick={() => {
+                                if (window.confirm("Are you sure want to delete this task?")){
+                                    this.props.onTaskDelete(index)
+                                }
+                            }}
+                    >Delete</button>
+                </div>
             </li>
         )
     }

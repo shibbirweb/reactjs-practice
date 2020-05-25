@@ -12,6 +12,7 @@ class TasksComponent extends Component {
                     <TaskComponent {...task} key={index}
                                    onStatusChange={(event) => this.props.onStatusChange(event)}
                                    onTaskUpdate={(event) => this.props.onTaskUpdate(event)}
+                                   onTaskDelete={(event) => this.props.onTaskDelete(event)}
                     />
                 )
             })
