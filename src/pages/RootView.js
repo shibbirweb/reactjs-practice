@@ -8,13 +8,20 @@ class RootView extends Component {
     constructor(props) {
         super(props);
 
+        const savedTask = JSON.parse(localStorage.getItem('todo_task'));
+
         // init state
         this.state = {
-            tasks: []
+            tasks: savedTask || []
         }
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        localStorage.setItem('todo_task', JSON.stringify(this.state.tasks));
+    }
+
     render() {
+
         return (
             <Fragment>
                 <div className="bg-dark py-2">
