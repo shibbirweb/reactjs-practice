@@ -8,11 +8,11 @@ export const ContactForm = () => {
                 <div className="form-row">
                     <div className="col-md-12 mb-3">
                         <label htmlFor="validationDefault01">First name</label>
-                        <input type="text" className="form-control" id="validationDefault01" value="Mark" required/>
+                        <input type="text" className="form-control" id="validationDefault01" required/>
                     </div>
                     <div className="col-md-12 mb-3">
                         <label htmlFor="validationDefault02">Last name</label>
-                        <input type="text" className="form-control" id="validationDefault02" value="Otto" required/>
+                        <input type="text" className="form-control" id="validationDefault02" required/>
                     </div>
                 </div>
                 <div className="form-row">
@@ -23,13 +23,21 @@ export const ContactForm = () => {
                     <div className="col-md-12 mb-3">
                         <label htmlFor="validationDefault04">State</label>
                         <select className="custom-select" id="validationDefault04" required>
-                            <option selected disabled value="">Choose...</option>
-                            <option>...</option>
+                            <option selected disabled>Choose...</option>
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
                         </select>
                     </div>
                     <div className="col-md-12 mb-3">
                         <label htmlFor="validationDefault05">Zip</label>
                         <input type="text" className="form-control" id="validationDefault05" required/>
+                    </div>
+                </div>
+                <div className="form-row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="message">Message</label>
+                        <textarea className="form-control" id="message" required/>
                     </div>
                 </div>
                 <div className="form-group">
