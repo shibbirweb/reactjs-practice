@@ -23,7 +23,7 @@ export const ContactForm = () => {
                     <div className="col-md-12 mb-3">
                         <label htmlFor="validationDefault04">State</label>
                         <select className="custom-select" id="validationDefault04" required>
-                            <option selected disabled>Choose...</option>
+                            <option>Choose...</option>
                             <option>Option 1</option>
                             <option>Option 2</option>
                             <option>Option 3</option>
