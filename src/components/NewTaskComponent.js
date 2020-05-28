@@ -23,8 +23,18 @@ class NewTaskComponent extends Component {
                 <div className="col-12">
                     <form onSubmit={(event) => {
                         event.preventDefault();
+
+                        // validation
+                        const newTask = this.state.task;
+
+                        if (! newTask.length){
+                            alert('Task is empty');
+                            return;
+                        }
+
+
                         this.props.onNewTask({
-                            title: this.state.task,
+                            title: newTask,
                             isCompleted: false
                         })
 
