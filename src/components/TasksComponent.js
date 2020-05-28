@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import TaskComponent from "./TaskComponent";
+import TaskStatistics from "./TaskStatistics";
 
 class TasksComponent extends Component {
     render() {
@@ -22,6 +23,7 @@ class TasksComponent extends Component {
             <div className="row">
                 <div className="col-12">
                     <h5 className="list-group-item text-center">Tasks</h5>
+                    <TaskStatistics tasks={this.props.tasks}/>
                     <ul className="list-group list-group-flush">
                         {tasksLi}
                     </ul>
