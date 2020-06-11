@@ -1,47 +1,80 @@
 import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
-import UserInput from "./Homework/UserInput";
-import UserOutput from "./Homework/UserOutput";
+import Validation from "./Homework/Validation";
+import CharComponent from "./Homework/CharComponent";
 
-class App extends Component{
+class App extends Component {
 
     state = {
         persons: [
-            {name: "Shibbir", age: 26},
-            {name: "Ahmed", age: 28},
-            {name: "Raihan", age: 27}
+            {id: "i-1", name: "Shibbir", age: 26},
+            {id: "i-2", name: "Ahmed", age: 28},
+            {id: "i-3", name: "Raihan", age: 27}
         ],
+        showPersons: false,
         homework: {
-            username: "Shibbir"
+            inputText: 'Something...'
         }
     }
 
-    switchNameHandler = (newName) => {
-        //console.log('Was clicked!')
+
+    nameChangeHandler = (event, id) => {
+
+        const personIndex = this.state.persons.findIndex(_person => _person.id === id);
+
+        //const person = Object.assign({}, this.state.persons[personIndex])
+        const person = {
+            ...this.state.persons[personIndex]
+        }
+
+        person.name = event.target.value;
+
+        const persons = [...this.state.persons];
+
+        persons[personIndex] = person;
+
+
         this.setState({
-            persons: [
-                {name: newName, age: 26},
-                {name: "Ahmed", age: 28},
-                {name: "Raihan", age: 27}
-            ]
+            persons: persons
         })
     }
 
-    nameChangeHandler = (event) => {
-        this.setState({
-            persons: [
-                {name: "Rizwan", age: 26},
-                {name: event.target.value, age: 30},
-                {name: "Raihan", age: 26}
-            ]
-        })
+    deletePersonHandler = (index) => {
+
+        //const persons = this.state.persons.slice();
+        const persons = [...this.state.persons];
+
+        persons.splice(index, 1);
+
+        this.setState({persons: persons})
     }
 
-    userInputHandler = (event) => {
+    togglePersonsHandler = () => {
+        const doesShow = this.state.showPersons;
+        this.setState({showPersons: !doesShow});
+    }
+
+    // ============== Homework ======================
+    homeworkInputChangeHandler = (event) => {
         this.setState({
             homework: {
-                username: event.target.value
+                inputText: event.target.value
+            }
+        })
+    }
+
+    charComponentClickHandler = (index) => {
+        const chars = [...this.state.homework.inputText];
+
+        chars.splice(index, 1);
+
+        //const updatedText =  Array.from(chars).join('');
+        const updatedText = chars.join('');
+
+        this.setState({
+            homework: {
+                inputText: updatedText
             }
         })
     }
@@ -56,6 +89,36 @@ class App extends Component{
             cursor: 'pointer'
         }
 
+        let persons = null;
+
+        if (this.state.showPersons) {
+            persons = (
+                <div>
+                    {
+                        this.state.persons.map((person, index) => {
+                            return <Person
+                                key={person.id}
+                                name={person.name}
+                                age={person.age}
+                                click={() => this.deletePersonHandler(index)}
+                                changed={(event) => this.nameChangeHandler(event, person.id)}
+                            />
+                        })
+                    }
+                </div>
+            )
+        }
+
+        // homework
+        //const chars = [...this.state.homework.inputText];
+        const chars = this.state.homework.inputText.split('')
+
+        const charsComponents = chars.map((char, index) => {
+            return (
+                <CharComponent key={index} input={char} click={() => this.charComponentClickHandler(index)}/>
+            )
+        })
+
 
         return (
             <div className="App">
@@ -64,27 +127,26 @@ class App extends Component{
 
                 <button
                     style={style}
-                    onClick={this.switchNameHandler.bind(this, 'Rizwan')}>Switch Name</button>
+                    onClick={this.togglePersonsHandler}
 
-                <Person
-                    name={this.state.persons[0].name}
-                    age={this.state.persons[0].age}
-                />
-                <Person
-                    name={this.state.persons[1].name}
-                    age={this.state.persons[1].age}
-                    click={this.switchNameHandler.bind(this, 'Shibbir')}
-                    changed={this.nameChangeHandler}
-                >My Hobby is Coding </Person>
-                <Person
-                    name={this.state.persons[2].name}
-                    age={this.state.persons[2].age}
-                />
+                >Switch Name
+                </button>
 
+                {persons}
+
+                <h4>Homework</h4>
+                <hr/>
                 <div>
-                    <UserInput username={this.state.homework.username} change={this.userInputHandler}/>
-                    <UserOutput username={this.state.homework.username}/>
+                    <input type="text" onChange={this.homeworkInputChangeHandler}
+                           value={this.state.homework.inputText}/>
+
+                    <p>Input Length: {this.state.homework.inputText.length}</p>
+
+                    <Validation textlength={this.state.homework.inputText.length}/>
+
+                    {charsComponents}
                 </div>
+
             </div>
             // React.createElement('div', {
             //   className: 'App'
