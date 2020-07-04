@@ -1,8 +1,23 @@
 import React, {Component} from 'react';
 import './App.css';
+//import Radium, {StyleRoot} from 'radium'
+import styled from 'styled-components'
 import Person from './Person/Person';
-import Validation from "./Homework/Validation";
-import CharComponent from "./Homework/CharComponent";
+
+
+const StyledButton = styled.button`
+    background-color: ${props => props.alt ? 'red' : 'green'};
+    color: white;
+    font: inherit;
+    border: 1px solid blue;
+    padding: 8px;
+    cursor: pointer;
+    
+    &:hover {
+        background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+        color: black;
+    }
+`
 
 class App extends Component {
 
@@ -12,10 +27,7 @@ class App extends Component {
             {id: "i-2", name: "Ahmed", age: 28},
             {id: "i-3", name: "Raihan", age: 27}
         ],
-        showPersons: false,
-        homework: {
-            inputText: 'Something...'
-        }
+        showPersons: false
     }
 
 
@@ -55,39 +67,20 @@ class App extends Component {
         this.setState({showPersons: !doesShow});
     }
 
-    // ============== Homework ======================
-    homeworkInputChangeHandler = (event) => {
-        this.setState({
-            homework: {
-                inputText: event.target.value
-            }
-        })
-    }
-
-    charComponentClickHandler = (index) => {
-        const chars = [...this.state.homework.inputText];
-
-        chars.splice(index, 1);
-
-        //const updatedText =  Array.from(chars).join('');
-        const updatedText = chars.join('');
-
-        this.setState({
-            homework: {
-                inputText: updatedText
-            }
-        })
-    }
-
 
     render() {
-        const style = {
-            backgroundColor: 'white',
+        /*const style = {
+            backgroundColor: 'green',
+            color: 'white',
             font: 'inherit',
             border: '1px solid blue',
             padding: '8px',
-            cursor: 'pointer'
-        }
+            cursor: 'pointer',
+            ':hover': {
+                backgroundColor: 'lightgreen',
+                color: 'black'
+            }
+        }*/
 
         let persons = null;
 
@@ -107,47 +100,42 @@ class App extends Component {
                     }
                 </div>
             )
+
+            /*style.backgroundColor = 'red'
+            style[':hover'] = {
+                backgroundColor: 'salmon',
+                color: 'black'
+            }*/
         }
 
-        // homework
-        //const chars = [...this.state.homework.inputText];
-        const chars = this.state.homework.inputText.split('')
+        //let classes = ['red', 'bold'].join(' ');
+        const classes = [];
 
-        const charsComponents = chars.map((char, index) => {
-            return (
-                <CharComponent key={index} input={char} click={() => this.charComponentClickHandler(index)}/>
-            )
-        })
+        if (this.state.persons.length <= 2){
+            classes.push('red') // classes = ['red']
+        }
+        if (this.state.persons.length <= 1){
+            classes.push('bold') // classes = ['red bold']
+        }
 
 
         return (
-            <div className="App">
-                <h1>Hi, I'm React App</h1>
-                <p>This is really working</p>
+            /*<StyleRoot>*/
+                <div className="App">
+                    <h1>Hi, I'm React App</h1>
+                    <p className={classes.join(' ')}>This is really working</p>
 
-                <button
-                    style={style}
-                    onClick={this.togglePersonsHandler}
+                    <StyledButton
+                        alt={this.state.showPersons}
+                        onClick={this.togglePersonsHandler}
 
-                >Switch Name
-                </button>
+                    >Switch Name
+                    </StyledButton>
 
-                {persons}
-
-                <h4>Homework</h4>
-                <hr/>
-                <div>
-                    <input type="text" onChange={this.homeworkInputChangeHandler}
-                           value={this.state.homework.inputText}/>
-
-                    <p>Input Length: {this.state.homework.inputText.length}</p>
-
-                    <Validation textlength={this.state.homework.inputText.length}/>
-
-                    {charsComponents}
+                    {persons}
                 </div>
+            /*</StyleRoot>*/
 
-            </div>
             // React.createElement('div', {
             //   className: 'App'
             // }, React.createElement('h1', null, 'I\'m a React App'))
@@ -156,6 +144,6 @@ class App extends Component {
 
 }
 
+//export default Radium(App);
 export default App;
-
 
