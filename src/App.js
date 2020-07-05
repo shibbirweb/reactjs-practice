@@ -91,9 +91,8 @@ class App extends Component {
                 <div>
                     {
                         this.state.persons.map((person, index) => {
-                            return <ErrorBoundary>
+                            return <ErrorBoundary key={person.id}>
                                 <Person
-                                    key={person.id}
                                     name={person.name}
                                     age={person.age}
                                     click={() => this.deletePersonHandler(index)}
