@@ -1,24 +1,8 @@
 import React, {Component} from 'react';
 import classes from './App.module.css';
-//import Radium, {StyleRoot} from 'radium'
-//import styled from 'styled-components'
-import Person from './Person/Person';
-import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+import Person from '../components/Persons/Person/Person';
 
 
-/*const StyledButton = styled.button`
-    background-color: ${props => props.alt ? 'red' : 'green'};
-    color: white;
-    font: inherit;
-    border: 1px solid blue;
-    padding: 8px;
-    cursor: pointer;
-
-    &:hover {
-        background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
-        color: black;
-    }
-`*/
 
 class App extends Component {
 
@@ -70,18 +54,6 @@ class App extends Component {
 
 
     render() {
-        /*const style = {
-            backgroundColor: 'green',
-            color: 'white',
-            font: 'inherit',
-            border: '1px solid blue',
-            padding: '8px',
-            cursor: 'pointer',
-            ':hover': {
-                backgroundColor: 'lightgreen',
-                color: 'black'
-            }
-        }*/
 
         let persons = null;
         let btnClass = '';
@@ -91,24 +63,19 @@ class App extends Component {
                 <div>
                     {
                         this.state.persons.map((person, index) => {
-                            return <ErrorBoundary key={person.id}>
-                                <Person
+                            return <Person
+                                    key={person.id}
                                     name={person.name}
                                     age={person.age}
                                     click={() => this.deletePersonHandler(index)}
                                     changed={(event) => this.nameChangeHandler(event, person.id)}
                                 />
-                            </ErrorBoundary>
+                            
                         })
                     }
                 </div>
             )
 
-            /*style.backgroundColor = 'red'
-            style[':hover'] = {
-                backgroundColor: 'salmon',
-                color: 'black'
-            }*/
 
             btnClass = classes.Red;
         }
@@ -125,7 +92,6 @@ class App extends Component {
 
 
         return (
-            /*<StyleRoot>*/
                 <div className={classes.App}>
                     <h1>Hi, I'm React App</h1>
                     <p className={assignedClasses.join(' ')}>This is really working</p>
@@ -138,16 +104,9 @@ class App extends Component {
 
                     {persons}
                 </div>
-            /*</StyleRoot>*/
-
-            // React.createElement('div', {
-            //   className: 'App'
-            // }, React.createElement('h1', null, 'I\'m a React App'))
         )
     }
 
 }
-
-//export default Radium(App);
 export default App;
 
