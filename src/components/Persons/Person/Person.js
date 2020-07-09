@@ -3,6 +3,7 @@ import classes from './Person.module.css';
 
 
 const person = (props) => {
+    console.log('[Person.js] is render')
     return (
         <div className={classes.Person}>
             <p
