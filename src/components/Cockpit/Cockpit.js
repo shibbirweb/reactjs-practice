@@ -10,7 +10,18 @@ const Cockpit = (props) => {
         setTimeout(() => {
             alert("Saved data to cloud")
         }, 1000)
-    }, [props.persons]) // [] empty array for only run first time
+
+        return () => {
+            console.log("[Cockpit.js] Cleanup work in use effect")
+        }
+    }, []) // [] empty array for only run first time
+
+    useEffect(() => {
+        console.log("[Cockpit.js] 2nd useEffect")
+        return () => {
+            console.log("[Cockpit.js] Cleanup work in 2nd useEffect")
+        }
+    })
 
     // useEffect();
 
