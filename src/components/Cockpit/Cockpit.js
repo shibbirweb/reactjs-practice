@@ -7,11 +7,12 @@ const Cockpit = (props) => {
         console.log("[Cockpit.js] useEffect")
         //http request
 
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             alert("Saved data to cloud")
         }, 1000)
 
         return () => {
+            clearTimeout(timer)
             console.log("[Cockpit.js] Cleanup work in use effect")
         }
     }, []) // [] empty array for only run first time
