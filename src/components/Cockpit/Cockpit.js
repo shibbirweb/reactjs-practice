@@ -6,7 +6,13 @@ const Cockpit = (props) => {
     useEffect(() => {
         console.log("[Cockpit.js] useEffect")
         //http request
-    })
+
+        setTimeout(() => {
+            alert("Saved data to cloud")
+        }, 1000)
+    }, [props.persons]) // [] empty array for only run first time
+
+    // useEffect();
 
     //let classes = ['red', 'bold'].join(' ');
     const assignedClasses = [];
