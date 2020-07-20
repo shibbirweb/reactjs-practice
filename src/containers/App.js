@@ -34,6 +34,15 @@ class App extends Component {
         
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("[App.js] componentDidUpdate")
+    }
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        console.log("[App.js] shouldComponentUpdate")
+        return true;
+    }
+
 
     nameChangeHandler = (event, id) => {
 
