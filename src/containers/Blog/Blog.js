@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 //import axios from "axios";
 import { Route, NavLink, Switch, Redirect } from "react-router-dom";
 
@@ -9,6 +9,8 @@ import asyncComponent from "../../hoc/asyncComponent"
 const AsyncNewPost = asyncComponent(() => {
   return import("./NewPost/NewPost");
 })
+
+const LayLoading = React.lazy(() => import('../../components/LazyLoading/LayLoading'))
 
 class Blog extends Component {
   state = {
@@ -44,6 +46,13 @@ class Blog extends Component {
                   New Post
                 </NavLink>
               </li>
+              <li>
+                <NavLink to={{ 
+                  pathname: "/lazy-2nd-way"
+                 }}>
+                  Lazy Loading 2nd Way
+                </NavLink>
+              </li>
             </ul>
           </nav>
         </header>
@@ -54,6 +63,13 @@ class Blog extends Component {
           {this.state.auth ? <Route path="/new-post" component={AsyncNewPost} /> : null }
           
           <Route path="/posts" component={Posts} />
+          
+          <Route path="/lazy-2nd-way" render={() => (
+            <Suspense fallback={<div>Loading....</div>}>
+              <LayLoading/>
+            </Suspense>
+          )} />
+          
           <Route render={() => <h1>Not found</h1>} />
           {/* <Redirect from="/" to="/posts" /> */}
           {/* <Route path="/" component={Posts} /> */}
